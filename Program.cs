@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics.Metrics;
+using System.Numerics;
+using System.Security.Principal;
 using System.Transactions;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -46,7 +48,7 @@ namespace BankingSystem
             Console.WriteLine("Select option:  ");
             int option= int.Parse(Console.ReadLine());
 
-            while (option != 0) {
+            while (option != 0) {          // i used while != 0 , so if not equal to 0 it will not go out , if equal =0 they move to Main menu
 
                 switch (option)
                 {
@@ -158,10 +160,157 @@ namespace BankingSystem
                         Console.WriteLine("Invalid option. Please choose 1–13 or 0 to finish.");
                         break;
                 }
-               Console.WriteLine("Select option:  ");
+               Console.WriteLine("Select option:  ");                  // to choose again the options
                option = int.Parse(Console.ReadLine());
             }
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+            Console.WriteLine("=== NATIONAL BANK OF OMAN  —  Unified Banking System ===");
+            Console.WriteLine("MAIN MENU");
+            Console.WriteLine(" 1) ATM Services  ");
+            Console.WriteLine(" 2) Account Management   ");
+            Console.WriteLine(" 3) Loan Services  ");
+            Console.WriteLine(" 4) Currency Exchange  ");
+            Console.WriteLine(" 5) Credit Card Portal  ");
+            Console.WriteLine(" 6) Branch Services   ");
+            Console.WriteLine(" 7) Reports & Admin    ");
+            Console.WriteLine(" 8) [BONUS] Full Terminal    ");
+            Console.WriteLine(" 0) Exit    ");
+            Console.WriteLine(" Select number from Main Menu:  ");
+            int Main_Menu = int.Parse(Console.ReadLine());
 
-        }
+
+                switch (Main_Menu) // need to converted
+                {
+                case 1:                                   // Task 1 in main menu : ATM Welcome & Display
+                    int ATM_MainMenu = -1;  // i declare it to -1 to use it in if condition (if  ATM_MainMenu == 0) , becuase if i dont declare any number will be error.
+                    Console.WriteLine("=== ATM SERVICES ===");
+                    Console.WriteLine("1) Bank Info");
+                    Console.WriteLine("2) Branch Info");
+                    Console.WriteLine("3) Opening Hours");
+                    Console.WriteLine("0) Back");
+                    Console.WriteLine("Select ATM services option:  ");
+                    ATM_MainMenu = int.Parse(Console.ReadLine());
+                    
+                    while (ATM_MainMenu != 0)
+                    {
+                        switch (ATM_MainMenu)
+                        {
+
+                            case 1:
+                                Console.WriteLine("Bank Info");
+                                Console.WriteLine("Bank Name: National Bank of Oman");
+                                Console.WriteLine("Tagline: “Unlocking Opportunities, As One");
+                                Console.WriteLine("Founded: 1973");
+                                break;
+
+                            case 2:
+                                Console.WriteLine("Branch Info");
+                                Console.WriteLine(" branch name: Qurum Branch");
+                                Console.WriteLine("city: Muscat");
+                                Console.WriteLine("address : Near PDO Area, Qurum, Muscat, Oman");
+                                break;
+
+                            case 3:
+                                Console.WriteLine(" Opening Hours");
+                                Console.WriteLine(" Weekday Opening Hours (Sunday–Thursday): 8:00 AM – 2:00 PM");
+                                Console.WriteLine(" Weekend Opening Hours:    Friday: Closed      Saturday: Closed");
+                                Console.WriteLine(" ATM Services: Available 24/7 ");
+                                break;
+
+                            case 0:
+                                Console.WriteLine(" Returning to Main Menu");
+                                break;
+
+                            default:
+                                Console.WriteLine(" Invalid selection. Please try again");
+                                break;
+
+
+                        }
+
+                        Console.WriteLine("Select ATM services option:  ");
+                        ATM_MainMenu = int.Parse(Console.ReadLine());
+
+                    }
+
+                if (ATM_MainMenu == 0)      /* // i used if because i want after i finish the while for (ATM menu) i need to go back for (main menu) ,
+                                                 so if its == 0 then i give me the Main menu again , i do again for Main_Menu input to choose any services again */
+                    {
+
+
+                        Console.WriteLine("=== NATIONAL BANK OF OMAN  —  Unified Banking System ===");
+                        Console.WriteLine("MAIN MENU");
+                        Console.WriteLine(" 1) ATM Services  ");
+                        Console.WriteLine(" 2) Account Management   ");
+                        Console.WriteLine(" 3) Loan Services  ");
+                        Console.WriteLine(" 4) Currency Exchange  ");
+                        Console.WriteLine(" 5) Credit Card Portal  ");
+                        Console.WriteLine(" 6) Branch Services   ");
+                        Console.WriteLine(" 7) Reports & Admin    ");
+                        Console.WriteLine(" 8) [BONUS] Full Terminal    ");
+                        Console.WriteLine(" 0) Exit    ");
+                        Console.WriteLine(" Select number from Main Menu:  ");
+                        Main_Menu = int.Parse(Console.ReadLine());
+         
+                    }
+                    else break;
+
+
+                    break;
+
+             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                case 2: 
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+
+                case 5:
+
+                    break;
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    /*
+                    1) ATM Services
+
+        2) Account Management
+
+        3) Loan Services
+
+        4) Currency Exchange     
+        →  Tasks  2,  3,  4,  5
+        →  Tasks  6,  7,  8
+        →  Tasks  9, 10, 11
+        →  Tasks 12, 13
+          5) Credit Card Portal
+          6) Branch Services
+          7) Reports & Admin
+        →  Tasks 14, 15
+        →  Tasks 16, 17, 18
+        →  Tasks 19, 20, 21
+        */
+
+                }
     }
 }
