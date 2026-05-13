@@ -3,6 +3,7 @@ using System.Diagnostics.Metrics;
 using System.Net.NetworkInformation;
 using System.Numerics;
 using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Principal;
 using System.Transactions;
 using System.Xml.Linq;
@@ -190,7 +191,7 @@ namespace BankingSystem
 
                 case 1:
                     //Task 1 in main menu : 1 - ATM Welcome & Display
-                    int ATM_MainMenu = -1;
+                    int ATM_MainMenu = -1;   // to starting before 0 i set int = -1 , because we need 0 to go out from menu .
                    
                     Console.WriteLine("=== ATM SERVICES ===");
                     Console.WriteLine("1) Bank Info");
@@ -504,7 +505,7 @@ namespace BankingSystem
                         }
 
 
-                        Console.WriteLine(" ATM Services  ");
+                        Console.WriteLine(" Select ATM services:   ");
                         ATM_MainMenu = int.Parse(Console.ReadLine());
                         // may be i will need to do something to come back
 
@@ -528,7 +529,116 @@ namespace BankingSystem
                     else break;
 
                     break;
-                 
+
+
+                case 2:                                              // this case for  Account Management menu 
+
+                    int Account_Managementmenu = -1;
+                    Console.WriteLine("===Account Management===");
+                    Console.WriteLine(" 1) Transaction Calculator");
+                    Console.WriteLine(" 2) Account Types");
+                    Console.WriteLine(" 3) Loan Eligibility");
+                    Console.WriteLine(" Select option :   ");
+                    Account_Managementmenu = int.Parse(Console.ReadLine());
+
+                    while (Account_Managementmenu != 0)
+                    {
+
+                        switch (Account_Managementmenu)
+                        {
+
+                            case 1:                          // Task 6 : Transaction Calculator
+
+                                int Transaction_Calculator = -1;
+                                Console.WriteLine("===Transaction Calculator===");
+
+                                Console.WriteLine("Using : "+ "Balance  " + balance + "   deposit=  " +deposit + "  Rate = 3.5");
+                                Console.WriteLine(" 1) Balance After Deposit");
+                                Console.WriteLine(" 2) Balance After Withdrawal ");
+                                Console.WriteLine(" 3) Annual Interest Earned");
+                                Console.WriteLine(" 4) Net Balance Change");
+                                Console.WriteLine(" 0) Back");
+                                Console.WriteLine(" Select calculation:   ");
+                                Transaction_Calculator = int.Parse(Console.ReadLine());
+
+
+                                while (Transaction_Calculator != 0)
+                                {
+
+                                    switch (Transaction_Calculator)
+                                    {
+
+                                       
+                                        case 1:                     //1) Balance After Deposit
+
+                                            balance = balance + withdrawal;
+                                            Console.WriteLine("Balance: " + balance.ToString("F3") + " Deposit: " + deposit.ToString("F3"));  
+                                            break;
+
+                                        case 2:
+
+
+                                            balance = balance - withdrawal;
+
+                                            Console.WriteLine("Balance: " + balance.ToString("F3") + " Withdrawal: " + withdrawal.ToString("F3"));
+                                            break;
+
+                                        case 3:
+                                            //Case 3: interest = balance * annualRate. Print the rate applied and the interest amount.
+
+                                            double interest = balance * annualRate;
+
+                                          Console.WriteLine("Rate Applied: " + annualRate.ToString("F3"));
+                                          Console.WriteLine("Interest Amount: " + interest.ToString("F3"));
+                                          break;
+
+
+                                         case 4:
+
+                                          double net = deposit - withdrawal;
+                                          Console.WriteLine("Net Amount: " + net.ToString("F3"));
+                                          if (net > 0)
+                                           {
+                                                Console.WriteLine("Surplus");
+                                           }
+                                            else if (net < 0)
+                                             {
+                                                  Console.WriteLine("Deficit");
+                                               }
+
+
+                                            break;
+
+
+
+
+
+
+                                    }
+
+                                    Console.WriteLine(" Select calculation:   ");
+                                    Transaction_Calculator = int.Parse(Console.ReadLine());
+                                    // may be i will need to do something to come back
+
+                                }
+                                break;
+
+                        }
+
+
+
+                    }
+
+
+
+
+
+
+
+
+
+
+                                break;
             }
 
             }
