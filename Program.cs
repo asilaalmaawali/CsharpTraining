@@ -2,6 +2,7 @@
 using System.Diagnostics.Metrics;
 using System.Net.NetworkInformation;
 using System.Numerics;
+using System.Reflection;
 using System.Security.Principal;
 using System.Transactions;
 using System.Xml.Linq;
@@ -167,20 +168,20 @@ namespace BankingSystem
                 Console.WriteLine("Select option:  ");                  // to choose again the options
                 option = int.Parse(Console.ReadLine());
             }
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //Console.WriteLine("=== NATIONAL BANK OF OMAN  —  Unified Banking System ===");
+            Console.WriteLine("=== NATIONAL BANK OF OMAN  —  Unified Banking System ===");
             Console.WriteLine("MAIN MENU");
             Console.WriteLine(" 1) ATM Services  ");
-            //Console.WriteLine(" 2) Account Management   ");
-            //Console.WriteLine(" 3) Loan Services  ");
-            //Console.WriteLine(" 4) Currency Exchange  ");
-            //Console.WriteLine(" 5) Credit Card Portal  ");
-            //Console.WriteLine(" 6) Branch Services   ");
-            //Console.WriteLine(" 7) Reports & Admin    ");
-            //Console.WriteLine(" 8) [BONUS] Full Terminal    ");
-            //Console.WriteLine(" 0) Exit    ");
-            //Console.WriteLine(" Select number from Main Menu:  ");
+            Console.WriteLine(" 2) Account Management   ");
+            Console.WriteLine(" 3) Loan Services  ");
+            Console.WriteLine(" 4) Currency Exchange  ");
+            Console.WriteLine(" 5) Credit Card Portal  ");
+            Console.WriteLine(" 6) Branch Services   ");
+            Console.WriteLine(" 7) Reports & Admin    ");
+            Console.WriteLine(" 8) [BONUS] Full Terminal    ");
+            Console.WriteLine(" 0) Exit    ");
+            Console.WriteLine(" Select number from Main Menu:  ");
             int Main_Menu = int.Parse(Console.ReadLine());
 
 
@@ -188,7 +189,7 @@ namespace BankingSystem
             {
 
                 case 1:
-                    // Task 1 in main menu : 1 - ATM Welcome & Display
+                    //Task 1 in main menu : 1 - ATM Welcome & Display
 
 
                     /*Console.WriteLine("=== ATM SERVICES ===");
@@ -216,33 +217,33 @@ namespace BankingSystem
                         {
 
                             case 1:
-                                Console.WriteLine("Bank Info");
-                                Console.WriteLine("Bank Name: National Bank of Oman");
-                                Console.WriteLine("Tagline: “Unlocking Opportunities, As One");
-                                Console.WriteLine("Founded: 1973");
-                                break;
+                            Console.WriteLine("Bank Info");
+                            Console.WriteLine("Bank Name: National Bank of Oman");
+                            Console.WriteLine("Tagline: “Unlocking Opportunities, As One");
+                            Console.WriteLine("Founded: 1973");
+                            break;
 
-                            case 2:
-                                Console.WriteLine("Branch Info");
-                                Console.WriteLine(" branch name: Qurum Branch");
-                                Console.WriteLine("city: Muscat");
-                                Console.WriteLine("address : Near PDO Area, Qurum, Muscat, Oman");
-                                break;
+                        case 2:
+                            Console.WriteLine("Branch Info");
+                            Console.WriteLine(" branch name: Qurum Branch");
+                            Console.WriteLine("city: Muscat");
+                            Console.WriteLine("address : Near PDO Area, Qurum, Muscat, Oman");
+                            break;
 
-                            case 3:
-                                Console.WriteLine(" Opening Hours");
-                                Console.WriteLine(" Weekday Opening Hours (Sunday–Thursday): 8:00 AM – 2:00 PM");
-                                Console.WriteLine(" Weekend Opening Hours:    Friday: Closed      Saturday: Closed");
-                                Console.WriteLine(" ATM Services: Available 24/7 ");
-                                break;
+                        case 3:
+                            Console.WriteLine(" Opening Hours");
+                            Console.WriteLine(" Weekday Opening Hours (Sunday–Thursday): 8:00 AM – 2:00 PM");
+                            Console.WriteLine(" Weekend Opening Hours:    Friday: Closed      Saturday: Closed");
+                            Console.WriteLine(" ATM Services: Available 24/7 ");
+                            break;
 
-                            case 0:
-                                Console.WriteLine(" Returning to Main Menu");
-                                break;
+                        case 0:
+                            Console.WriteLine(" Returning to Main Menu");
+                            break;
 
-                            default:
-                                Console.WriteLine(" Invalid selection. Please try again");
-                                break;
+                        default:
+                            Console.WriteLine(" Invalid selection. Please try again");
+                            break;
 
                         }
 
@@ -337,8 +338,6 @@ namespace BankingSystem
                     ATM_SubMenu_AUTHENTICATION = int.Parse(Console.ReadLine());
 
 
-                    //  Case 1: read PIN; if matches CORRECT_PIN print 'Access granted. Welcome, [holderName]'; else if
-                    //length != 4 'Invalid PIN format.'; else 'Incorrect PIN.'
                     while (ATM_SubMenu_AUTHENTICATION != 0)
                     {
                         switch (ATM_SubMenu_AUTHENTICATION)
@@ -400,17 +399,97 @@ namespace BankingSystem
                         // may be i will need to do something to come back
                     }
 
-                  break;
+                      break;
+
+                case 4:                                        // Task 5: ATM Receipt Printer
+
+
+                    int Print_Receipt = -1;
+
+                    Console.WriteLine("=== PRINT RECEIPT ===");
+                    Console.WriteLine("1) Short Receipt");
+                    Console.WriteLine("2) Detailed Receipt");
+                    Console.WriteLine("3) Balance Only");
+                    Console.WriteLine("0) Back");
+                    Console.WriteLine("Select type of Receipt:  ");
+                    Print_Receipt = int.Parse(Console.ReadLine());
 
 
 
-                case 4:
+                    while (Print_Receipt != 0)
+                    {
+
+                        switch (Print_Receipt)
+                        {
+                               
+                            case 1:
+                                //  Case 1: holderName + masked accountNumber (****last4digits) + balance 3 dp.
+
+
+                                string maskedAccount = "****" + (accountNumber % 10000);  // here to view first (4 number) from accountNumber **** , % 10000 to view last 4 number
+
+                                Console.WriteLine("--Short Receipt--");
+                                Console.WriteLine("Holder Name: " + holderName);
+                                Console.WriteLine("Account Number: " + maskedAccount);
+                                Console.WriteLine("Balance: " + balance.ToString("F3")); // Convert the balance number into text with 3 numbers after the decimal point.
+
+                                break;
+
+                            case 2:
+
+                                Console.WriteLine("Account Number is :  " + accountNumber);
+                                Console.WriteLine("Holder name is :  " + holderName);
+                                Console.WriteLine("Balance: " + balance.ToString("F3")); // we do same case 1
+                                Console.WriteLine("Account Type is :  " + isActive);
+                                Console.WriteLine("Account Type is :  " + accountType);
+                                Console.WriteLine("Account Type is :  " + isEmployed);
+                                Console.WriteLine("Monthly salary is :  " + salary + " OMR");
+                                Console.WriteLine("creditScore is :  " + creditScore);
+                                Console.WriteLine("creditScore is :  " + age);
+                                Console.WriteLine("Last Deposit Amount is:   " + deposit);
+                                Console.WriteLine("Last withdrawal Amount is :   " + withdrawal);
+                                Console.WriteLine("Annual Interest Rate is :    " + annualRate);
+                                Console.WriteLine("Avg Monthly Balance is :   " + avgBalance);
+
+                                break;
+
+                            case 3:
+                                Console.WriteLine("Balance: " + balance.ToString("F3") + " OMR");
+                                break;
+
+
+                            default:
+                                Console.WriteLine("Invalid receipt format");
+                                break;
+
+                        }
+
+                     Console.WriteLine("Select type of Receipt:  ");
+                     Print_Receipt = int.Parse(Console.ReadLine());
+                        // may be i will need to do something to come back
+                      
+                    }
+
+                    // here i will do if condition = 0 go back to ATM menu
+
+
+                    if (Print_Receipt == 0)
+
+                    {
+
+                        Console.WriteLine("=== ATM SERVICES ===");
+                        Console.WriteLine("1) Bank Info");
+                        Console.WriteLine("2) View Account Data");
+                        Console.WriteLine("3) Authenticate");
+                        Console.WriteLine("4) Print Receipt");
+                        Console.WriteLine("Select ATM services option:  ");
+                        int ATM_MainMenu = int.Parse(Console.ReadLine());
+
+                    }
+                    else break;
 
                     break;
 
-                case 5:
-
-                    break;
 
             }
 
