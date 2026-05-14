@@ -575,7 +575,7 @@ namespace BankingSystem
                                             Console.WriteLine("Balance: " + balance.ToString("F3") + " Deposit: " + deposit.ToString("F3"));  
                                             break;
 
-                                        case 2:
+                                        case 2:   //After Withdrawal
 
 
                                             balance = balance - withdrawal;

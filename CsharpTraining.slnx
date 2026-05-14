@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="BankingSystem.csproj" />
+  <Project Path="ClinicManagementSystem/ClinicManagementSystem.csproj" Id="5c0c2760-67f0-4033-8163-a77d6d79751a" />
 </Solution>
