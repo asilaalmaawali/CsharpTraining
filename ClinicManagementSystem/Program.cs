@@ -1,4 +1,7 @@
-﻿namespace ClinicManagementSystem
+﻿using System.Numerics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace ClinicManagementSystem
 {
     internal class Program
     {
@@ -43,6 +46,15 @@
 
             // for option in Appointment Management Sub-Menu
             int APPOINTMENTMenu_option;
+
+            // declare name 
+            string name ="";
+
+            //declare age
+            int age;
+            //declare phone
+            string phone ="";
+
             /////////////////////////////////////////////////////////////////////////////////
             //-- Main Menu --//
 
@@ -62,12 +74,14 @@
 
                 switch (choice)
                 {
+                    ///////////////------------------------------------5.1  Patient Operations :---------------------------------------------------////////////////////
                     case 1:                                               // Patient Management Sub-Menu
+                       
 
                         while (exit == false)
                         {
-                            Console.Clear();
-                            Console.WriteLine("===PATIENT MANAGEMENT===");
+                            //Console.Clear();            i take it off , because with this code , the error message not displayed for wrong Age 
+                            Console.WriteLine("===PATIENT MANAGEMENT==="); 
                             Console.WriteLine("1.Add New Patient ");
                             Console.WriteLine("2.Display All Patients");
                             Console.WriteLine("3.Update Patient Phone");
@@ -80,7 +94,54 @@
                             {
 
                                 case 1:                                          //1.Add New Patient
+                                    
+                                    if (patientCount == MAX_PATIENTS)
+                                    {
+                                        Console.WriteLine("Clinic is full. Cannot add more patients.");
+                                        break;
+                                    }
+                                 
 
+                                    Console.WriteLine("===Add New Patient===");
+                                    Console.WriteLine("Enter Patient name");
+                                    name = Console.ReadLine();
+
+                                    if (name == "")
+                                    {
+                                        Console.WriteLine("error");
+                                        break;
+                                    }
+                                                                  
+
+
+                                    Console.WriteLine("Enter Patient Age");
+
+                                    age = int.Parse(Console.ReadLine());
+
+                                    if (age < 1 || age > 120)
+                                    {
+                                        Console.WriteLine("Error: Invalid Age");
+                                        break;
+                                    }
+
+
+                                    if (p1Active==false)
+                                    {
+                                        p1Name = name; p1Age = age; p1Phone = phone; p1Active = true;     // here to check there is a patient already
+                                    }
+                                    else if (p2Active == false)
+                                    {
+                                        p2Name = name; p2Age = age; p2Phone = phone; p2Active = true;
+                                    }
+                                    else if (p3Active == false)
+                                    {
+                                        p3Name = name; p3Age = age; p3Phone = phone; p3Active = true;
+                                    }
+
+                                 //   patientCount++;
+                                    Console.WriteLine("Patient Added");
+
+                                  
                                     break;
 
                                 case 2:                                         //2.Display All Patients
@@ -102,13 +163,11 @@
                                     break;
 
                             }
-
+                            
                         }
 
-
-
                         break;
-
+                               
                     case 2:      //  Doctor Management Sub-Menu
 
 
