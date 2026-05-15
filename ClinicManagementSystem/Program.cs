@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System.Drawing;
+using System.Numerics;
+using System.Runtime.Intrinsics.X86;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ClinicManagementSystem
@@ -55,6 +57,10 @@ namespace ClinicManagementSystem
             //declare phone
             string phone ="";
 
+            // declare counter for loop
+            int counter =1;
+
+
             /////////////////////////////////////////////////////////////////////////////////
             //-- Main Menu --//
 
@@ -65,7 +71,7 @@ namespace ClinicManagementSystem
             {
                 Console.Clear();
                 Console.WriteLine("===CLINIC MANAGEMENT SYSTEM===");
-                Console.WriteLine("1.Patient Management ");
+                Console.WriteLine("1.Patient Managements ");
                 Console.WriteLine("2.Doctor Management   ");
                 Console.WriteLine("3.Appointment Management ");
                 Console.WriteLine("0.Exit");
@@ -124,6 +130,9 @@ namespace ClinicManagementSystem
                                         break;
                                     }
 
+                                    Console.WriteLine("Enter Patient Phone");
+
+                                    phone = Console.ReadLine();
 
                                     if (p1Active==false)
                                     {
@@ -138,19 +147,156 @@ namespace ClinicManagementSystem
                                         p3Name = name; p3Age = age; p3Phone = phone; p3Active = true;
                                     }
 
-                                 //   patientCount++;
+                                    patientCount++;
                                     Console.WriteLine("Patient Added");
 
                                   
                                     break;
 
                                 case 2:                                         //2.Display All Patients
+                                    Console.WriteLine("===Display All Patients===");
+                                    if (patientCount == 0) {
+                                        Console.WriteLine("No patients registered.");
+                                        break;
+                                    }
+
+                                    if (p1Active)                                        // if the patient available , they will displayed the info
+                                    {
+                                            Console.WriteLine("Patient #1 " + "Name: " + p1Name); 
+                                            Console.WriteLine("Age: " + p1Age);
+                                            Console.WriteLine("Phone: " + p1Phone);
+
+                                        counter++;                // Each time a patient is printed, the counter increases by 1. Then will go for the next patient
+                                    }
+
+                                    if (p2Active)
+                                    {
+                                        Console.WriteLine("Patient #2 " + "Name: " + p2Name);
+                                        Console.WriteLine("Age: " + p2Age);
+                                        Console.WriteLine("Phone: " + p2Phone);
+                                        counter++;
+                                    }
+
+
+                                    if (p3Active)
+                                    {
+                                        
+                                        Console.WriteLine("Patient #3" + "Name: " + p2Name);
+                                        Console.WriteLine("Name: " + p3Name);
+                                        Console.WriteLine("Age: " + p3Age);
+                                        Console.WriteLine("Phone: " + p3Phone);
+                                        counter++;                    
+                                    }
                                     break;
 
                                 case 3:                                        //3.Update Patient Phone
-                                    break;
+                                    Console.WriteLine("===Update Patient Phone===");
+                                    Console.WriteLine("Enter Patient name");
+                                    name = Console.ReadLine();         
+
+                                   // Use if-else: if (p1Active && p1Name == name) → read new phone → p1Phone = newPhone → print
+
+                                    if (p1Active && p1Name == name)    // here to check the name = p1name and available to set new phone
+                                    {
+                                        Console.WriteLine("Enter Patient new phone");
+                                        phone = Console.ReadLine();
+
+                                        p1Phone = phone;
+
+                                        Console.WriteLine("Updated.");
+                                    }
+                                    else if (p2Active && p1Name == name)
+                                    {
+
+                                        Console.WriteLine("Enter Patient new phone");
+                                        phone = Console.ReadLine();
+
+                                        p2Phone = phone;
+
+                                        Console.WriteLine("Updated.");
+
+                                    }
+                                    else if(p2Active && p1Name == name)
+                                    {
+
+
+                                        Console.WriteLine("Enter Patient new phone");
+                                        phone = Console.ReadLine();
+
+                                        p3Phone = phone;
+
+                                        Console.WriteLine("Updated.");
+
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Patient not found.");   // if we do wrong name or name of patient not in the records , this error message will appear
+                                    }
+
+                                        break;
 
                                 case 4:                                       //4.Delete Patient
+
+                                    Console.WriteLine("===Delete Patient===");
+                                    Console.WriteLine("Enter Patient name");
+                                    name = Console.ReadLine();
+
+
+
+                                    if (p1Active && p1Name == name)
+                                    {
+                                        p1Active = false;      
+                                        p1Name = "";                             // i set all the variables as default 
+                                        p1Age = 0;
+                                        p1Phone = "";
+
+                                        patientCount--;           // here i use decrement so every time Subtract from Patient 
+
+                                        Console.WriteLine("Patient deleted.");
+
+                                    }
+                                    else if (p2Active && p2Name == name)
+                                    {
+                                        p2Active = false;                           
+                                        p2Name = "";
+                                        p2Age = 0; 
+                                        p2Phone = "";
+
+                                        patientCount--;
+
+                                        Console.WriteLine("Patient deleted.");
+
+                                    }
+                                    else if (p3Active && p3Name == name)
+                                    {
+                                        p3Active = false;
+                                        p3Name = "";
+                                        p3Age = 0;
+                                        p3Phone = "";
+
+                                        patientCount--;
+
+                                        Console.WriteLine("Patient deleted.");
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Patient not found.");
+                                    }
+                                    
+
+
+
+
+
+
+
+
+
+
+
+
                                     break;
 
                                 case 0:
