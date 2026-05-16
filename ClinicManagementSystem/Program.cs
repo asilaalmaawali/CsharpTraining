@@ -69,15 +69,24 @@ namespace ClinicManagementSystem
 
             //declare for doctor name input
             string dname = "";
+
+            //declare exit for each menu , becuase when i use one exit it mix it all togather
+            bool exitMainMenu = false;
+            bool exitPatientMenu = false;
+            bool exitDoctorMenu = false;
+            bool exitAppMenu = false;
+
+
+
             /////////////////////////////////////////////////////////////////////////////////
             //-- Main Menu --//
 
 
 
 
-            while (exit == false)
+            while (exitMainMenu == false)
             {
-                Console.Clear();
+                //Console.clear();
                 Console.WriteLine("===CLINIC MANAGEMENT SYSTEM===");
                 Console.WriteLine("1.Patient Managements ");
                 Console.WriteLine("2.Doctor Management   ");
@@ -92,7 +101,7 @@ namespace ClinicManagementSystem
                     case 1:                                               // Patient Management Sub-Menu
                        
 
-                        while (exit == false)
+                        while (exitPatientMenu == false)
                         {
                             //Console.Clear();            i take it off , because with this code , the error message not displayed for wrong Age 
                             Console.WriteLine("===PATIENT MANAGEMENT==="); 
@@ -300,8 +309,8 @@ namespace ClinicManagementSystem
                                     break;
 
                                 case 0:
-                                    exit = true;
-                                    exit = bool.Parse(Console.ReadLine());
+                                    exitPatientMenu = true;
+                                    
                                     
                                     break;
 
@@ -311,24 +320,7 @@ namespace ClinicManagementSystem
 
                             }
 
-                            //Console.WriteLine("Enter your option:");
-                            //option = int.Parse(Console.ReadLine());
-
-                            //if (option == 0)
-                            //{
-
-                               
-                            //    Console.WriteLine("===CLINIC MANAGEMENT SYSTEM===");
-                            //    Console.WriteLine("1.Patient Managements ");
-                            //    Console.WriteLine("2.Doctor Management   ");
-                            //    Console.WriteLine("3.Appointment Management ");
-                            //    Console.WriteLine("0.Exit");
-                            //    Console.WriteLine("Enter your choice:");
-                            //    choice = int.Parse(Console.ReadLine());
-
-                            //}
-                         
-                            
+                          
 
                         }
 
@@ -337,7 +329,7 @@ namespace ClinicManagementSystem
                     case 2:  //Doctor Management Sub-Menu
 
 
-                        while (exit == false)
+                        while (exitDoctorMenu == false)
                         {
 
                             Console.WriteLine("===DOCTOR MANAGEMENT===");
@@ -522,9 +514,8 @@ namespace ClinicManagementSystem
 
                                 case 0:                               //0. Back to Main Menu
 
-                                            exit = bool.Parse(Console.ReadLine());
-                                            exit = true;
-                                            break;
+                                    exitDoctorMenu = true;
+                                    break;
 
                                         default:                                      // for any another number not their in cases value
                                             Console.WriteLine("Invalid option");
@@ -538,8 +529,8 @@ namespace ClinicManagementSystem
                     ////////////////////////////---------------------5.3  Appointment Operations ----------------------------///////////////////////
                     case 3:                                               // Appointment Management Sub-Menu
 
-
-                        while (exit == false)
+                        
+                        while (exitAppMenu == false)
                         {
                             
                             Console.WriteLine("===APPOINTMENT MANAGEMENT===");
@@ -691,7 +682,7 @@ namespace ClinicManagementSystem
                                         a1Patient = chosenPatient;
                                         a1Doctor = chosenDoctor;
                                         a1Date = appointmentDate;
-                                        a1Status = "Scheduled";
+                                        a1Status = "Scheduled";        
                                         a1Active = true;
 
                                         Console.WriteLine("Appointment booked ");
@@ -728,7 +719,41 @@ namespace ClinicManagementSystem
                                     break;
 
                                 case 2:                                         //2. Display All Appointments 
-                                    break;
+
+                                    if(appointmentCount == 0)
+                                    {
+                                        Console.WriteLine("No appointments booked.");
+                                      
+                                    }
+
+                                    Console.WriteLine("=== All Appointments ===");
+
+                                    if (a1Active)
+                                    {
+                                        Console.WriteLine("Patient: " + a1Patient);
+                                        Console.WriteLine("Doctor: " + a1Doctor);
+                                        Console.WriteLine("Date: " + a1Date);
+                                        Console.WriteLine("Status: " + a1Status);   
+                                    }
+
+                                    if (a2Active)
+                                    {
+                                        Console.WriteLine("Patient: " + a2Patient);
+                                        Console.WriteLine("Doctor: " + a2Doctor);
+                                        Console.WriteLine("Date: " + a2Date);
+                                        Console.WriteLine("Status: " + a2Status);
+
+                                    }
+                                    if(a3Active)
+                                    {
+                                        Console.WriteLine("Patient: " + a3Patient);
+                                        Console.WriteLine("Doctor: " + a3Doctor);
+                                        Console.WriteLine("Date: " + a3Date);
+                                        Console.WriteLine("Status: " + a3Status);
+                                    }
+
+
+                                        break;
 
                                 case 3:                                        //3. Update Appointment Status
                                     break;
@@ -737,8 +762,8 @@ namespace ClinicManagementSystem
                                     break;
 
                                 case 0:                                       //  0. Back to Main Menu
-                                    exit = bool.Parse(Console.ReadLine());
-                                    exit = true;
+                                   
+                                    exitAppMenu = true;
                                     break;
 
                                 default:                                      // for any another number not their in cases value
@@ -747,17 +772,14 @@ namespace ClinicManagementSystem
 
                             }
 
-
-
-
                         }
 
 
                         break;
 
                     case 0:                                               // Exit
-                        exit = bool.Parse(Console.ReadLine());
-                        exit = true;
+                       
+                        exitMainMenu = true;
                         break;
 
 
