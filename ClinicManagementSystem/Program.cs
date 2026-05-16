@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel.Design;
+using System.Drawing;
 using System.Numerics;
 using System.Runtime.Intrinsics.X86;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -299,8 +300,9 @@ namespace ClinicManagementSystem
                                     break;
 
                                 case 0:
-                                    exit = bool.Parse(Console.ReadLine());
                                     exit = true;
+                                    exit = bool.Parse(Console.ReadLine());
+                                    
                                     break;
 
                                 default:
@@ -308,11 +310,30 @@ namespace ClinicManagementSystem
                                     break;
 
                             }
+
+                            //Console.WriteLine("Enter your option:");
+                            //option = int.Parse(Console.ReadLine());
+
+                            //if (option == 0)
+                            //{
+
+                               
+                            //    Console.WriteLine("===CLINIC MANAGEMENT SYSTEM===");
+                            //    Console.WriteLine("1.Patient Managements ");
+                            //    Console.WriteLine("2.Doctor Management   ");
+                            //    Console.WriteLine("3.Appointment Management ");
+                            //    Console.WriteLine("0.Exit");
+                            //    Console.WriteLine("Enter your choice:");
+                            //    choice = int.Parse(Console.ReadLine());
+
+                            //}
+                         
                             
+
                         }
 
                         break;
-
+                    /////////////////--------------------------------------5.2  Doctor Operations-------------------------------//////////////////////////////////
                     case 2:  //Doctor Management Sub-Menu
 
 
@@ -514,13 +535,13 @@ namespace ClinicManagementSystem
                         }
                                     break;
 
-                            
+                    ////////////////////////////---------------------5.3  Appointment Operations ----------------------------///////////////////////
                     case 3:                                               // Appointment Management Sub-Menu
 
 
                         while (exit == false)
                         {
-                            Console.Clear();
+                            
                             Console.WriteLine("===APPOINTMENT MANAGEMENT===");
                             Console.WriteLine("1. Book New Appointment  ");
                             Console.WriteLine("2. Display All Appointments ");
@@ -534,6 +555,175 @@ namespace ClinicManagementSystem
                             {
 
                                 case 1:                                          //1. Book New Appointment  
+
+
+                                    if (appointmentCount == MAX_APPOINTMENTS)
+                                    {
+
+                                        Console.WriteLine("No available appointment slots");
+                                        break;
+                                    }
+
+                                    if (patientCount == 0 || doctorCount == 0)
+                                    {
+                                        Console.WriteLine("Please add patients and doctors first.");
+                                        break;
+                                    }
+
+                                    Console.WriteLine("===Active Patients===");   // to list active patient
+
+                                    if (p1Active)
+                                    {
+                                        Console.WriteLine("1. " + p1Name);
+                                    }
+
+                                    if (p2Active)
+                                    {
+                                        Console.WriteLine("2. " + p2Name);
+                                    }
+
+                                    if (p3Active)
+                                    {
+                                        Console.WriteLine("3. " + p3Name);
+                                    }
+
+                                    Console.WriteLine("Choose patient number:");
+                                    int pchoice = int.Parse(Console.ReadLine()); // patient number 
+
+                                    if ((pchoice == 1 && p1Active) ||
+                                        (pchoice == 2 && p2Active) ||
+                                        (pchoice == 3 && p3Active))
+                                    {
+                                        Console.WriteLine("Valid patient selected.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid choice.");
+                                    }
+
+                                    string chosenPatient = "";        //Store the chosen patient name into a temporary string variable
+
+
+                                    if (pchoice == 1 && p1Active)         // if choice == active patient so (chosenPatient) temporary to store name = patient name
+                                    {
+                                        chosenPatient = p1Name;
+                                    }
+                                    else if (pchoice == 2 && p2Active)
+                                    {
+                                        chosenPatient = p2Name;
+                                    }
+                                    else if (pchoice == 3 && p3Active)
+                                    {
+                                        chosenPatient = p3Name;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid choice.");
+                                    }
+
+                                    Console.WriteLine("===Active Doctors===");
+
+                                    if (d1Active)
+                                    {
+                                        Console.WriteLine("1. " + d1Name);
+                                    }
+
+                                    if (d2Active)
+                                    {
+                                        Console.WriteLine("2. " + d2Name);
+                                    }
+
+                                    Console.WriteLine("Choose patient number:");
+                                    int dchoice = int.Parse(Console.ReadLine()); // Doctor number 
+
+                                    if ((pchoice == 1 && p1Active) ||
+                                        (pchoice == 2 && p2Active) ||
+                                        (pchoice == 3 && p3Active))
+                                    {
+                                        Console.WriteLine("Valid patient selected.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid choice.");
+                                    }
+
+
+                                    string chosenDoctor = "";   //Store the chosen patient name into a temporary string variable
+
+
+                                    if (dchoice == 1 && d1Active)        // if choice == active patient so (chosenPatient) temporary to store name = patient name
+                                    {
+                                        chosenPatient = d1Name;
+                                    }
+                                    else if (dchoice == 2 && d1Active)
+                                    {
+                                        chosenPatient = d1Name;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid choice.");
+                                    }
+
+                                    Console.WriteLine("Enter appointment date in this format (DD/MM/YYYY)):  ");
+                                    string appointmentDate = Console.ReadLine();  // we can use (date) data type but here the requirement is (string)
+
+
+                                    if (a1Active && a1Patient == chosenPatient && a1Doctor == chosenDoctor && a1Date == appointmentDate)
+                                    {
+
+                                        Console.WriteLine("Duplicate appointment.");
+                                        break;
+                                    }
+                                    else if (a2Active && a2Patient == chosenPatient && a2Doctor == chosenDoctor && a2Date == appointmentDate)
+                                    {
+                                        Console.WriteLine("Duplicate appointment.");
+                                        break;
+                                    }
+                                    else if(a3Active && a3Patient == chosenPatient && a3Doctor == chosenDoctor && a3Date == appointmentDate)
+                                    {
+                                        Console.WriteLine("Duplicate appointment.");
+                                        break;
+
+                                    }
+
+                                    if (a1Active == false )         // check that appoinment available
+                                    {
+                                        a1Patient = chosenPatient;
+                                        a1Doctor = chosenDoctor;
+                                        a1Date = appointmentDate;
+                                        a1Status = "Scheduled";
+                                        a1Active = true;
+
+                                        Console.WriteLine("Appointment booked ");
+                                    }
+                                    else if (a2Active==false )
+                                    {
+                                        a2Patient = chosenPatient;
+                                        a2Doctor = chosenDoctor;
+                                        a2Date = appointmentDate;
+                                        a2Status = "Scheduled";
+                                        a2Active = true;
+
+                                        Console.WriteLine("Appointment booked ");
+                                    }
+                                    else if (a3Active==false)
+                                    {
+                                        a3Patient = chosenPatient;
+                                        a3Doctor = chosenDoctor;
+                                        a3Date = appointmentDate;
+                                        a3Status = "Scheduled";
+                                        a3Active = true;
+
+                                        Console.WriteLine("Appointment booked ");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("No free appointment slots.");
+                                    }
+                                    
+
+                                    appointmentCount++;
+                                    Console.WriteLine("Appointment booked.");
 
                                     break;
 
@@ -556,6 +746,9 @@ namespace ClinicManagementSystem
                                     break;
 
                             }
+
+
+
 
                         }
 
