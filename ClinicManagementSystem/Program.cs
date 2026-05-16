@@ -75,19 +75,15 @@ namespace ClinicManagementSystem
             bool exitPatientMenu = false;
             bool exitDoctorMenu = false;
             bool exitAppMenu = false;
-
-
-
             /////////////////////////////////////////////////////////////////////////////////
-            //-- Main Menu --//
-
-
+                                         // main menu //
 
 
             while (exitMainMenu == false)
             {
-                //Console.clear();
-                Console.WriteLine("===CLINIC MANAGEMENT SYSTEM===");
+                //Console.clear();      //i remove console.clear in main menu , it caused problem , when i exit from submenu i can't see (main menu) because of it
+                
+                                Console.WriteLine("===CLINIC MANAGEMENT SYSTEM===");
                 Console.WriteLine("1.Patient Managements ");
                 Console.WriteLine("2.Doctor Management   ");
                 Console.WriteLine("3.Appointment Management ");
@@ -99,8 +95,7 @@ namespace ClinicManagementSystem
                 {
                     ///////////////------------------------------------5.1  Patient Operations :---------------------------------------------------////////////////////
                     case 1:                                               // Patient Management Sub-Menu
-                       
-
+               
                         while (exitPatientMenu == false)
                         {
                             //Console.Clear();            i take it off , because with this code , the error message not displayed for wrong Age 
@@ -123,8 +118,7 @@ namespace ClinicManagementSystem
                                         Console.WriteLine("Clinic is full. Cannot add more patients.");
                                         break;
                                     }
-                                 
-
+ 
                                     Console.WriteLine("===Add New Patient===");
                                     Console.WriteLine("Enter Patient name");
                                     name = Console.ReadLine();
@@ -134,8 +128,6 @@ namespace ClinicManagementSystem
                                         Console.WriteLine("error");
                                         break;
                                     }
-                                                                  
-
 
                                     Console.WriteLine("Enter Patient Age");
 
@@ -167,7 +159,6 @@ namespace ClinicManagementSystem
                                     patientCount++;
                                     Console.WriteLine("Patient Added");
 
-                                  
                                     break;
 
                                 case 2:                                         //2.Display All Patients
@@ -197,9 +188,7 @@ namespace ClinicManagementSystem
                                         Console.WriteLine("Phone: " + p2Phone);
                                         displayNum++;
                                     }
-                                    
-
-
+                              
                                     if (p3Active)
                                     {
                                         Console.WriteLine("Patient #" + displayNum);
@@ -228,27 +217,21 @@ namespace ClinicManagementSystem
                                     }
                                     else if (p2Active && p1Name == name)
                                     {
-
                                         Console.WriteLine("Enter Patient new phone");
                                         phone = Console.ReadLine();
 
                                         p2Phone = phone;
-
                                         Console.WriteLine("Updated.");
 
                                     }
                                     else if(p2Active && p1Name == name)
                                     {
-
-
                                         Console.WriteLine("Enter Patient new phone");
                                         phone = Console.ReadLine();
 
                                         p3Phone = phone;
 
                                         Console.WriteLine("Updated.");
-
-
                                     }
                                     else
                                     {
@@ -319,9 +302,6 @@ namespace ClinicManagementSystem
                                     break;
 
                             }
-
-                          
-
                         }
 
                         break;
@@ -384,10 +364,8 @@ namespace ClinicManagementSystem
                                         d2Name = dname; d2Spec = specialization; d2Fee = fee; d2Active = true;
                                     }
 
-
                                     doctorCount++;
                                     Console.WriteLine("Doctor Added successfully.");
-
 
                                     break;
 
@@ -423,7 +401,6 @@ namespace ClinicManagementSystem
                                         Console.WriteLine("fee: " + d2Fee);
                                         displayNum++;
                                     }
-
                                     break;
 
                                 case 3:                                        //3. Update Consultation Fee
@@ -527,7 +504,7 @@ namespace ClinicManagementSystem
                                     break;
 
                     ////////////////////////////---------------------5.3  Appointment Operations ----------------------------///////////////////////
-                    case 3:                                               // Appointment Management Sub-Menu
+                    case 3:                                      // Appointment Management Sub-Menu
 
                         
                         while (exitAppMenu == false)
@@ -627,9 +604,9 @@ namespace ClinicManagementSystem
                                     Console.WriteLine("Choose patient number:");
                                     int dchoice = int.Parse(Console.ReadLine()); // Doctor number 
 
-                                    if ((pchoice == 1 && p1Active) ||
-                                        (pchoice == 2 && p2Active) ||
-                                        (pchoice == 3 && p3Active))
+                                    if ((dchoice == 1 && p1Active) ||
+                                        (dchoice == 2 && p2Active) ||
+                                        (dchoice == 3 && p3Active))
                                     {
                                         Console.WriteLine("Valid patient selected.");
                                     }
@@ -639,16 +616,17 @@ namespace ClinicManagementSystem
                                     }
 
 
-                                    string chosenDoctor = "";   //Store the chosen patient name into a temporary string variable
+                                    string chosenDoctor = "";   //Store the chosen Doctor name into a temporary string variable
 
 
-                                    if (dchoice == 1 && d1Active)        // if choice == active patient so (chosenPatient) temporary to store name = patient name
+                                    if (dchoice == 1 && d1Active)        // if choice == active Doctor so (chosenDoctor) temporary to store name = patient name
                                     {
-                                        chosenPatient = d1Name;
+
+                                        chosenDoctor = d1Name;
                                     }
                                     else if (dchoice == 2 && d1Active)
                                     {
-                                        chosenPatient = d1Name;
+                                        chosenDoctor = d1Name;
                                     }
                                     else
                                     {
@@ -726,6 +704,7 @@ namespace ClinicManagementSystem
                                       
                                     }
 
+                                   
                                     Console.WriteLine("=== All Appointments ===");
 
                                     if (a1Active)
@@ -752,13 +731,123 @@ namespace ClinicManagementSystem
                                         Console.WriteLine("Status: " + a3Status);
                                     }
 
-
                                         break;
 
                                 case 3:                                        //3. Update Appointment Status
-                                    break;
+
+                                    Console.WriteLine("=== Update Appointment Status ===");
+
+                                    if (a1Active)         //here to displayed in order
+                                    {
+                                        Console.WriteLine("1. " + a1Patient + " - " + a1Doctor);
+                                    }
+
+                                    if (a2Active)
+                                    {
+                                        Console.WriteLine("2. " + a2Patient + " - " + a2Doctor);
+                                    }
+
+                                    if (a3Active)
+                                    {
+                                        Console.WriteLine("3. " + a3Patient + " - " + a3Doctor);
+                                    }
+
+                                    Console.WriteLine("Choose slot number:");
+                                    int chosenSlot = int.Parse(Console.ReadLine());      // here to choose the slot that i want to updated
+
+
+                                    if ((chosenSlot == 1 && a1Active) ||  (chosenSlot == 2 && a2Active) ||  (chosenSlot == 3 && a3Active))
+
+                                    {
+                                        Console.WriteLine("1. Scheduled");
+                                        Console.WriteLine("2. Completed");
+                                        Console.WriteLine("3. Cancelled");
+
+                                        Console.WriteLine("Choose status:");
+                                        int statusChoice = int.Parse(Console.ReadLine());  // to choose the number for 1. Scheduled , 2. Completed , 3. Cancelled
+
+                                        switch (statusChoice)
+                                        {
+                                            case 1:
+
+                                                if (chosenSlot == 1)                   //if they choose 1 will set to Scheduled
+                                                    a1Status = "Scheduled";
+
+                                                else if (chosenSlot == 2)
+                                                    a2Status = "Scheduled";
+
+                                                else if (chosenSlot == 3)
+                                                    a3Status = "Scheduled";
+
+                                                break;
+
+                                            case 2:
+
+                                                if (chosenSlot == 1)
+                                                    a1Status = "Completed";          //if they choose 2 will set to Completed
+
+                                                else if (chosenSlot == 2)
+                                                    a2Status = "Completed";
+
+                                                else if (chosenSlot == 3)
+                                                    a3Status = "Completed";
+
+                                                break;
+
+                                            case 3:
+
+                                                if (chosenSlot == 1)               //if they choose 2 will set to Cancelled
+                                                    a1Status = "Cancelled";
+
+                                                else if (chosenSlot == 2)
+                                                    a2Status = "Cancelled";
+
+                                                else if (chosenSlot == 3)
+                                                    a3Status = "Cancelled";
+
+                                                break;
+
+                                            default:
+                                                Console.WriteLine("Invalid status.");
+                                                break;
+                                        }
+
+                                        Console.WriteLine("Appointment status updated.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid slot.");
+                                    }
+             
+                                        break;
 
                                 case 4:                                       //4. 4.Cancel Appointment
+
+                                    Console.WriteLine("Enter patient name:");
+                                    name = Console.ReadLine();
+                                    Console.WriteLine("Enter appointment date (DD/MM/YYYY):");
+                                    appointmentDate = Console.ReadLine();
+
+                                    if (a1Active && a1Patient == name && a1Date == appointmentDate)
+                                    {
+                                        a1Status = "Cancelled";
+                                        Console.WriteLine("Appointment cancelled.");
+                                    }
+                                    else if (a2Active && a2Patient == name && a2Date == appointmentDate)
+                                    {
+                                        a2Status = "Cancelled";
+                                        Console.WriteLine("Appointment cancelled.");
+                                    }
+                                    else if (a3Active && a3Patient == name && a3Date == appointmentDate)
+                                    {
+                                        a3Status = "Cancelled";
+                                        Console.WriteLine("Appointment cancelled.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Appointment not found.");
+                                    }
+
                                     break;
 
                                 case 0:                                       //  0. Back to Main Menu
@@ -769,11 +858,9 @@ namespace ClinicManagementSystem
                                 default:                                      // for any another number not their in cases value
                                     Console.WriteLine("Invalid option");
                                     break;
-
                             }
 
                         }
-
 
                         break;
 
@@ -781,16 +868,9 @@ namespace ClinicManagementSystem
                        
                         exitMainMenu = true;
                         break;
-
-
                 }
 
             }
-
-
-
-
-
 
         }
     }
