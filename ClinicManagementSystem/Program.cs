@@ -49,7 +49,7 @@ namespace ClinicManagementSystem
             // for option in Appointment Management Sub-Menu
             int APPOINTMENTMenu_option;
 
-            // declare name 
+            // declare name (patient name input)
             string name ="";
 
             //declare age
@@ -57,10 +57,17 @@ namespace ClinicManagementSystem
             //declare phone
             string phone ="";
 
-            // declare counter for loop
-            int counter =1;
+            // declare counter for display
+            int displayNum = 1;  
 
+            // declare specialization
+            string specialization ="";
 
+            // declare fee
+            double fee;
+
+            //declare for doctor name input
+            string dname = "";
             /////////////////////////////////////////////////////////////////////////////////
             //-- Main Menu --//
 
@@ -154,39 +161,44 @@ namespace ClinicManagementSystem
                                     break;
 
                                 case 2:                                         //2.Display All Patients
+
                                     Console.WriteLine("===Display All Patients===");
                                     if (patientCount == 0) {
                                         Console.WriteLine("No patients registered.");
                                         break;
                                     }
 
+                                    displayNum = 1;   // here i reset the counter every time , because i want everytime i displayed either i delete one patient the count of patient be re-order
                                     if (p1Active)                                        // if the patient available , they will displayed the info
                                     {
-                                            Console.WriteLine("Patient #1 " + "Name: " + p1Name); 
+                                            Console.WriteLine("Patient #" + displayNum);  // here to count the patient 
+                                            Console.WriteLine("Name: " + p1Name); 
                                             Console.WriteLine("Age: " + p1Age);
                                             Console.WriteLine("Phone: " + p1Phone);
-
-                                        counter++;                // Each time a patient is printed, the counter increases by 1. Then will go for the next patient
+                                        displayNum++;  
+                                                     // Each time a patient is printed, the counter increases by 1. Then will go for the next patient
                                     }
 
                                     if (p2Active)
                                     {
-                                        Console.WriteLine("Patient #2 " + "Name: " + p2Name);
+                                        Console.WriteLine("Patient #" + displayNum);
+                                        Console.WriteLine("Name: " + p2Name);
                                         Console.WriteLine("Age: " + p2Age);
                                         Console.WriteLine("Phone: " + p2Phone);
-                                        counter++;
+                                        displayNum++;
                                     }
+                                    
 
 
                                     if (p3Active)
                                     {
-                                        
-                                        Console.WriteLine("Patient #3" + "Name: " + p2Name);
+                                        Console.WriteLine("Patient #" + displayNum);
                                         Console.WriteLine("Name: " + p3Name);
                                         Console.WriteLine("Age: " + p3Age);
                                         Console.WriteLine("Phone: " + p3Phone);
-                                        counter++;                    
+                                        displayNum++;           
                                     }
+
                                     break;
 
                                 case 3:                                        //3.Update Patient Phone
@@ -194,8 +206,7 @@ namespace ClinicManagementSystem
                                     Console.WriteLine("Enter Patient name");
                                     name = Console.ReadLine();         
 
-                                   // Use if-else: if (p1Active && p1Name == name) → read new phone → p1Phone = newPhone → print
-
+                                  
                                     if (p1Active && p1Name == name)    // here to check the name = p1name and available to set new phone
                                     {
                                         Console.WriteLine("Enter Patient new phone");
@@ -251,7 +262,7 @@ namespace ClinicManagementSystem
                                         p1Age = 0;
                                         p1Phone = "";
 
-                                        patientCount--;           // here i use decrement so every time Subtract from Patient 
+                                        displayNum--;           // here i use decrement so every time Subtract from Patient 
 
                                         Console.WriteLine("Patient deleted.");
 
@@ -263,7 +274,7 @@ namespace ClinicManagementSystem
                                         p2Age = 0; 
                                         p2Phone = "";
 
-                                        patientCount--;
+                                        displayNum--;
 
                                         Console.WriteLine("Patient deleted.");
 
@@ -275,7 +286,7 @@ namespace ClinicManagementSystem
                                         p3Age = 0;
                                         p3Phone = "";
 
-                                        patientCount--;
+                                        displayNum--;
 
                                         Console.WriteLine("Patient deleted.");
 
@@ -284,19 +295,7 @@ namespace ClinicManagementSystem
                                     {
                                         Console.WriteLine("Patient not found.");
                                     }
-                                    
-
-
-
-
-
-
-
-
-
-
-
-
+  
                                     break;
 
                                 case 0:
@@ -313,13 +312,13 @@ namespace ClinicManagementSystem
                         }
 
                         break;
-                               
-                    case 2:      //  Doctor Management Sub-Menu
+
+                    case 2:  //Doctor Management Sub-Menu
 
 
                         while (exit == false)
                         {
-                            Console.Clear();
+
                             Console.WriteLine("===DOCTOR MANAGEMENT===");
                             Console.WriteLine("1. Add New Doctor ");
                             Console.WriteLine("2. Display All Doctors");
@@ -333,33 +332,189 @@ namespace ClinicManagementSystem
                             {
 
                                 case 1:                                          //1. Add New Doctor
+                                    Console.WriteLine("===Add New Doctor===");
+                                    if (doctorCount == MAX_PATIENTS)
+                                    {
+                                        Console.WriteLine("No available doctor slots.");
+                                        break;
+                                    }
+
+                                    Console.WriteLine("Enter Doctor name :  ");
+                                    dname = Console.ReadLine();
+                                    Console.WriteLine("Enter Doctor specialization :  ");
+                                    specialization = Console.ReadLine();
+
+                                    if (dname == "" && specialization == "")
+                                    {
+
+                                        Console.WriteLine("cannot be empty");
+
+                                    }
+
+                                    Console.WriteLine("Enter Fee :  ");
+                                    fee = double.Parse(Console.ReadLine());
+
+
+                                    if (fee < 0)
+                                    {
+                                        Console.WriteLine("Error");
+                                        break;
+
+                                    }
+
+                                    if (d1Active == false)
+                                    {
+                                        d1Name = dname; d1Spec = specialization; d1Fee = fee; d1Active = true;     // here to check there is a Doctor already
+                                    }
+                                    else if (d2Active == false)
+                                    {
+                                        d2Name = dname; d2Spec = specialization; d2Fee = fee; d2Active = true;
+                                    }
+
+
+                                    doctorCount++;
+                                    Console.WriteLine("Doctor Added successfully.");
+
 
                                     break;
 
-                                case 2:                                         //2. Display All Doctors
+                                case 2:                                       //2. Display All Doctors
+
+                                    Console.WriteLine("===Display All Doctors===");
+
+
+                                    if (doctorCount == 0)
+                                    {                                    // if doctor count 0 , there no doctor registered
+
+                                        Console.WriteLine(" No doctors registered.");
+                                        break;
+                                    }
+
+                                    displayNum = 1;
+
+                                    if (d1Active)                                        // if the doctor available , they will displayed the info
+                                    {
+                                        Console.WriteLine("Dcotor #" + displayNum);
+                                        Console.WriteLine("Name: " + d1Name);
+                                        Console.WriteLine("specialization : " + d1Spec);
+                                        Console.WriteLine("fee: " + d1Fee);
+
+                                        displayNum++;                // Each time a doctor is printed, the counter increases by 1. Then will go for the next doctor
+                                    }
+
+                                    if (d2Active)
+                                    {
+                                        Console.WriteLine("Dcotor #" + displayNum);
+                                        Console.WriteLine("Name: " + d2Name);
+                                        Console.WriteLine("specialization : " + d2Spec);
+                                        Console.WriteLine("fee: " + d2Fee);
+                                        displayNum++;
+                                    }
+
                                     break;
 
                                 case 3:                                        //3. Update Consultation Fee
+
+                                    Console.WriteLine("===Update Consultation Fee===");
+                                    Console.WriteLine("Enter Doctor name ");
+                                    dname = Console.ReadLine();
+
+
+                                    if (d1Active && d1Name == dname)
+                                    // here to check the dname= d1name and avaialable to set new fee
+                                    {
+                                        Console.WriteLine("Enter Doctor new fee");
+                                        fee = double.Parse(Console.ReadLine());
+
+                                        d1Fee = fee;
+
+
+                                        if (fee < 0)
+                                        {
+                                            Console.WriteLine("Error: Invalid fee");
+                                            break;
+                                        }
+
+                                        d1Fee = fee;
+
+                                        Console.WriteLine("Fee updated.");
+                                    }
+                                    else if (d1Active && d1Name == dname)
+                                    {
+
+                                        Console.WriteLine("Enter new fee:");
+                                        fee = Convert.ToDouble(Console.ReadLine());
+
+                                        if (fee < 0)
+                                        {
+                                            Console.WriteLine("Error: Invalid fee");
+                                            break;
+                                        }
+
+                                        d2Fee = fee;
+
+                                        Console.WriteLine("Fee updated.");
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Doctor not found.");
+                                    }
+
+
                                     break;
 
                                 case 4:                                       //4. Delete Doctor
-                                    break;
 
-                                case 0:                                       //  0. Back to Main Menu
-                                    exit = bool.Parse(Console.ReadLine());
-                                    exit = true;
-                                    break;
+                                    Console.WriteLine("===Delete Doctor");
+                                    Console.WriteLine("Enter Doctor name");
+                                    dname = Console.ReadLine();
 
-                                default:                                      // for any another number not their in cases value
-                                    Console.WriteLine("Invalid option");
-                                    break;
+
+
+                                    if (d1Active && d1Name == dname)
+                                    {
+                                        d1Active = false;
+                                        d1Name = "";                             // i set all the variables as default 
+                                        d1Fee = 0.00;
+
+
+                                        displayNum--;           // here i use decrement so every time Subtract from doctor
+
+                                        Console.WriteLine("Patient deleted.");
+
+                                    }
+                                    else if (d2Active && d2Name == dname)
+                                    {
+                                        d2Active = false;
+                                        d2Name = "";
+                                        d2Fee = 0.00;
+
+
+                                        displayNum--;
+
+                                        Console.WriteLine("Patient deleted.");
+
+                                    }
+                                        break;
+
+
+                                case 0:                               //0. Back to Main Menu
+
+                                            exit = bool.Parse(Console.ReadLine());
+                                            exit = true;
+                                            break;
+
+                                        default:                                      // for any another number not their in cases value
+                                            Console.WriteLine("Invalid option");
+                                            break;
+
 
                             }
-
                         }
+                                    break;
 
-                        break;
-
+                            
                     case 3:                                               // Appointment Management Sub-Menu
 
 
